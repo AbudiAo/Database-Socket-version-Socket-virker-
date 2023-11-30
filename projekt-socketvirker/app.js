@@ -11,17 +11,17 @@ app.use((req, res, next) => {
   }); 
 
 const { initializeDatabase } = require("./database"); 
-const menuRouter = require("./menu");
-const inventoryRouter = require("./inventory");
-const signupRouter = require("./signup");
+const menuRouter = require("./Routes/menuRoutes");
+const inventoryRouter = require("./Routes/inventoryRoutes");
+const signupRouter = require("./Routes/signupRoutes");
 
 app.use(express.json());
-app.use(express.static("Frontendview")); // Tilføj statiske filer fra Frontendview mappen
+app.use(express.static("Frontend")); // Tilføj statiske filer fra Frontendview mappen
 
 initializeDatabase(); // Initialiser databasen (opretter tabeller og indsætter items og ingredienser)
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "Frontendview","main","index.html")); // Send index.html til klienten
+    res.sendFile(path.join(__dirname, "Frontend","main","index.html")); // Send index.html til klienten
 });
 
 app.use("/menu", menuRouter);

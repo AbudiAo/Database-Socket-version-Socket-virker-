@@ -1,7 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
-const crypto = require('crypto'); 
 
-// Database
+// Opretter databasen
 const db = new sqlite3.Database('storage.db');
 
 // Initialiserer databasen og indsætter startdata
@@ -10,6 +9,7 @@ const initializeDatabase = () => {
     db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, email TEXT UNIQUE, password TEXT)');
     db.run('CREATE TABLE IF NOT EXISTS inventory (id INTEGER PRIMARY KEY, item TEXT, quantity INTEGER)');
     db.run('CREATE TABLE IF NOT EXISTS menu (id INTEGER PRIMARY KEY, item TEXT, ingredients TEXT)', () => {
+      console.log("Database er nu oprettet")
       // Indsættelse af data i inventory og menu
       db.get('SELECT COUNT(*) AS count FROM inventory', (error, menu) => {
         if (error) {
@@ -28,7 +28,6 @@ const initializeDatabase = () => {
 
 const insertInitialData = () => {
   const inventoryItems = [
-    
         { item: "coffee beans", quantity: 1000 },
         { item: "whole milk", quantity: 100 },
         { item: "oat milk", quantity: 100 },
@@ -45,12 +44,11 @@ const insertInitialData = () => {
         { item: "ice", quantity: 100 },
         { item: "vanilla ice cream", quantity: 100 },
         { item: "cup", quantity: 100 }
-      
   ];
 
   const menuItems = [
     // Definer menu items her
-     // Coffee Options
+     // Kaffe muligheder
      { item: "Caffe Latte", ingredient1: "coffee beans", quantity1: 10, ingredient2: "whole milk", quantity2: 3, ingredient3: "cup", quantity3: 1 },
      { item: "Espresso", ingredient1: "coffee beans", quantity1: 7, ingredient2: "water", quantity2: 1, ingredient3: "cup", quantity3: 1 },
      { item: "Cappuccino", ingredient1: "coffee beans", quantity1: 8, ingredient2: "whole milk", quantity2: 3, ingredient3: "cup", quantity3: 1 },
@@ -60,7 +58,7 @@ const insertInitialData = () => {
      { item: "Affogato", ingredient1: "coffee beans", quantity1: 7, ingredient2: "vanilla ice cream", quantity2: 1, ingredient3: "cup", quantity3: 1 },
      { item: "Iced Coffee", ingredient1: "coffee beans", quantity1: 12, ingredient2: "ice", quantity2: 6, ingredient3: "cup", quantity3: 1 },
 
-     // Juice Options
+     // Juice muligheder
      { item: "Orange Juice", ingredient1: "oranges", quantity1: 3, ingredient2: "water", quantity2: 1, ingredient3: "cup", quantity3: 1 },
      { item: "Apple Juice", ingredient1: "apples", quantity1: 2, ingredient2: "water", quantity2: 1, ingredient3: "cup", quantity3: 1 },
      { item: "Strawberry Smoothie", ingredient1: "strawberries", quantity1: 5, ingredient2: "whole milk", quantity2: 2, ingredient3: "cup", quantity3: 1 },
